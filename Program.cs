@@ -2,4 +2,4 @@
 // 使用示例
 using ZTool.Sugers;
 using ZTool.Usages;
-ZStructuresUsage.RichEnum();
+Console.WriteLine("Hello");

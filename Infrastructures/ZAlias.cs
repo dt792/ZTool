@@ -9,10 +9,10 @@ namespace ZTool.Infrastructures;
 /// 中文名 
 /// 使用:[ChineseName("中文名1","中文名2",...)]
 /// </summary>
-public class AilasAttribute : Attribute
+public class AliasAttribute : Attribute
 {
     public string[] Ailas { get; set; }
-    public AilasAttribute(params string[] chineseName)
+    public AliasAttribute(params string[] chineseName)
     {
         Ailas = chineseName;
     }
@@ -32,8 +32,8 @@ public static class ZAilas
             filter = type => true;
         var result = assemblies
             .SelectMany(assemble => assemble.GetTypes())
-            .Where(type => type.GetCustomAttribute(typeof(AilasAttribute)) is not null)
-            .Select(member => (member.Name, ((AilasAttribute)member.GetCustomAttribute(typeof(AilasAttribute))).Ailas))//keySelector: (a, b) => a,elementSelector:(a, b) => b
+            .Where(type => type.GetCustomAttribute(typeof(AliasAttribute)) is not null)
+            .Select(member => (member.Name, ((AliasAttribute)member.GetCustomAttribute(typeof(AliasAttribute))).Ailas))//keySelector: (a, b) => a,elementSelector:(a, b) => b
             .ToDictionary(x => x.Name, x => x.Ailas);
         return result;
     }
@@ -53,9 +53,9 @@ public static class ZAilas
         var result = assemblies
             .SelectMany(assemble => assemble.GetTypes())
             .SelectMany(type => mapper(type))
-            .Where(member => member.GetCustomAttribute(typeof(AilasAttribute)) is not null)
+            .Where(member => member.GetCustomAttribute(typeof(AliasAttribute)) is not null)
             .Where(member => filter(member))
-            .Select(member => (member.Name, ((AilasAttribute)member.GetCustomAttribute(typeof(AilasAttribute))).Ailas))
+            .Select(member => (member.Name, ((AliasAttribute)member.GetCustomAttribute(typeof(AliasAttribute))).Ailas))
             .ToDictionary(x => x.Name, x => x.Ailas);
         return result;
     }
@@ -69,7 +69,7 @@ public static class ZAilas
     public static string[] GetAlias<T>()
     {
         var type = typeof(T);
-        var attri = ((AilasAttribute)type.GetCustomAttribute(typeof(AilasAttribute)));
+        var attri = ((AliasAttribute)type.GetCustomAttribute(typeof(AliasAttribute)));
         if (attri is not null)
         {
             return attri.Ailas;

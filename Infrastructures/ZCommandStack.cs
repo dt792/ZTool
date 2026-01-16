@@ -1,4 +1,4 @@
-﻿namespace ZTools.Infrastructures;
+﻿namespace ZTool.Infrastructures;
 public abstract class CommandBase
 {
     public virtual void Undo() { }

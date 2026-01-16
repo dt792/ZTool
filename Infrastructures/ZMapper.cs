@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
-namespace ZTools.Infrastructures;
+namespace ZTool.Infrastructures;
 
 public class Mapper<F, T> where T :  new()
 {

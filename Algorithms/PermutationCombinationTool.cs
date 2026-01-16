@@ -1,5 +1,4 @@
-﻿
-namespace GeoInference.Tools;
+﻿namespace ZTool.Algorithms;
 public class PermutationCombinationTool
 {
     /// <summary>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZTools.Infrastructures;
+namespace ZTool.Infrastructures;
 
 public abstract class Event
 {

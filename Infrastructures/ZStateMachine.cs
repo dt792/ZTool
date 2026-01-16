@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZTools.Infrastructures;
+namespace ZTool.Infrastructures;
 public class StateTransferContext<T>
 {
     public T OldState {  get; set; }

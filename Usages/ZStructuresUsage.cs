@@ -16,7 +16,7 @@ public static class ZStructuresUsage
     public static void Clone()
     {
         Model model= new Model();
-        Model model2 = model.ShowllaClone();
+        Model model2 = model.ShallowClone();
         Console.WriteLine(model2);
         Model model3 = model.DeepClone();
         Console.WriteLine(model3);

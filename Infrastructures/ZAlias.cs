@@ -6,8 +6,8 @@ using System.Text;
 
 namespace ZTool.Infrastructures;
 /// <summary>
-/// 中文名 
-/// 使用:[ChineseName("中文名1","中文名2",...)]
+/// 别名 
+/// 使用:[Alias("别名1","别名2",...)]
 /// </summary>
 public class AliasAttribute : Attribute
 {
@@ -81,6 +81,14 @@ public static class ZAilas
     }
     public static string[] GetAlias(this Type type)
     {
-        return GetAlias(type);
+        var attri = ((AliasAttribute)type.GetCustomAttribute(typeof(AliasAttribute)));
+        if (attri is not null)
+        {
+            return attri.Ailas;
+        }
+        else
+        {
+            return [];
+        }
     }
 }

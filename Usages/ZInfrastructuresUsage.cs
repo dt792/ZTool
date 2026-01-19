@@ -10,7 +10,7 @@ namespace ZTool.Usages;
 
 internal class ZInfrastructuresUsage
 {
-    [Ailas(["通用","一般"])]
+    [Alias(["通用","一般"])]
     class Model { }
     public static void AliasUsage()
     {

@@ -17,7 +17,7 @@ public static class ObjectTool
         }
         return stringBuilder.ToString();
     }
-    public static T ShowllaClone<T>(this T obj) where T : new()
+    public static T ShallowClone<T>(this T obj) where T : new()
     {
         var newObj = (T)RuntimeHelpers.GetUninitializedObject(obj.GetType());
         foreach (var prop in typeof(T).GetProperties())

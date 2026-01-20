@@ -11,7 +11,7 @@
     <Description>自用小工具</Description>
     <Title>ZTool_Re</Title>
 	<PackageId>ZTool_Re</PackageId>
-	<VersionPrefix>1.0.2</VersionPrefix>
+	<VersionPrefix>1.0.4</VersionPrefix>
   </PropertyGroup>
 
 </Project>

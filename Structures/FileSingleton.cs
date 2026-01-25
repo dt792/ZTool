@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using ZTool.Bases;
 
 namespace ZTool.Structures;
 
@@ -26,7 +27,7 @@ public class FileSingleton<T> where T : new()
                             runtimeContextInJson = File.ReadAllText(SavePath);
                             try
                             {
-                                _instance = JsonSerializer.Deserialize<T>(runtimeContextInJson);
+                                _instance = JsonTool.RefDeserialize<T>(runtimeContextInJson!);
                             }
                             catch (Exception ex)
                             {
@@ -54,7 +55,7 @@ public class FileSingleton<T> where T : new()
             Directory.CreateDirectory(SaveDir);
         try
         {
-            string json = JsonSerializer.Serialize(Instance);
+            string json = JsonTool.RefSerialize(Instance!);
             File.WriteAllText(SavePath, json);
         }
         catch (Exception ex)

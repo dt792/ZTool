@@ -9,9 +9,10 @@ namespace ZTool.Usages;
 
 public static class ZStructuresUsage
 {
-    class Model
+    public class Model
     {
         public string Name { get; set; }
+        public Model Friend {  get; set; }
     }
     public static void Clone()
     {
@@ -41,5 +42,17 @@ public static class ZStructuresUsage
     {
         Console.WriteLine(CCardT.Higher== CCardT.Higher);
         Console.WriteLine(CCardT.Higher.Value());
+    }
+    public class Single:FileSingleton<Single> 
+    {
+        public Model a { get; set; } = new Model();
+        public Model b { get; set; } = new Model();
+    }
+    public static void FileSingleton()
+    {
+        Single.Instance.a.Friend = Single.Instance.b;
+        Single.Instance.b.Friend = Single.Instance.a;
+        var json= JsonTool.RefSerialize(Single.Instance);
+        Console.WriteLine(json);
     }
 }

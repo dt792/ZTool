@@ -6,9 +6,9 @@ using System.Text.Json.Serialization;
 
 namespace ZTool.Bases;
 
-public class JsonTool
+public static class JsonTool
 {
-    public string RefSerialize(object obj)
+    public static string RefSerialize(object obj)
     {
         var options = new JsonSerializerOptions
         {
@@ -18,7 +18,7 @@ public class JsonTool
         string json = JsonSerializer.Serialize(obj, options);
         return json;
     }
-    public T RefDeserialize<T>(string json)
+    public static T RefDeserialize<T>(string json)
     {
         var options = new JsonSerializerOptions
         {
@@ -28,12 +28,12 @@ public class JsonTool
         T obj = JsonSerializer.Deserialize<T>(json, options);
         return obj;
     }
-    public string Serialize(object obj)
+    public static string Serialize(object obj)
     {
         string json = JsonSerializer.Serialize(obj);
         return json;
     }
-    public T Deserialize<T>(string json)
+    public static T Deserialize<T>(string json)
     {
         T obj = JsonSerializer.Deserialize<T>(json);
         return obj;

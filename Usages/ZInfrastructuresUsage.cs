@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Threading.Channels;
 using Microsoft.VisualBasic;
@@ -40,13 +41,20 @@ internal class ZInfrastructuresUsage
         ZLog.ToConsole = true;
         ZLog.Info("haha");
     }
-    public class Any { 
+    public enum AB
+    {
+        None = 0,
+        Class=1
+    }
+    public class Any {
+        public AB Color { get; set; }= AB.Class;
         public int AnyInt{ get; set; }
         public string AnyStr="23";
         public string done="done";
         public string msg = "dddsd";
     }
     public class AnyDO { 
+        public string Color{ get; set; }
         public int anyint { get; set; }
         public string any_str { get; set; }
         public string mes;
@@ -58,6 +66,7 @@ internal class ZInfrastructuresUsage
             .Final((f,t)=>t.msglength=f.msg.Length);
         Any a=new Any() { AnyInt =10};
         var q= a.To<AnyDO>();
+        a=q.To<Any>();
         Console.WriteLine(q);
         AnyDO ao = ZMapper.Map<Any,AnyDO>(a);
         Console.WriteLine(ao);

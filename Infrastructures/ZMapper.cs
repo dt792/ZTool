@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Drawing;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace ZTool.Infrastructures;
@@ -93,7 +94,24 @@ public class Mapper<F, T> where T :  new()
             }
         }
     }
-    
+    public object SimpleDefaultMap(object fromObj,Type toType)
+    {
+        if(fromObj.GetType() == toType)
+            return fromObj;
+        if(toType == typeof(string))
+        {
+            return fromObj.ToString();
+        }
+        if (toType == typeof(Enum))
+        {
+            return Enum.Parse(toType, fromObj.ToString()); ;
+        }
+        if (toType == typeof(int))
+        {
+            return int.Parse(fromObj.ToString()); ;
+        }
+        return null;
+    }
     public void Map(F f, T t)
     {
         foreach (var memberPair in mapDict)
@@ -111,11 +129,15 @@ public class Mapper<F, T> where T :  new()
 
             if (memberPair.Value is PropertyInfo tp)
             {
-                tp.SetValue(t, value);
+                value= SimpleDefaultMap(value,tp.PropertyType);
+                if(value != null)
+                    tp.SetValue(t, value);
             }
             else if (memberPair.Value is FieldInfo tf)
             {
-                tf.SetValue(t, value);
+                value = SimpleDefaultMap(value, tf.FieldType);
+                if (value != null)
+                    tf.SetValue(t, value);
             }
         }
         finalAction?.Invoke(f, t);

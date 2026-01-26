@@ -1,38 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace ZTool.Infrastructures;
 public enum ZLoggerLevels
 {
-    Trace,
     Info,
     Warn,
+    Trace,
     Error,
-    Fatal
+    Fatal,
 }
-public class LogContent
+public class ZLogContent
 {
-    public LogContent()
+    public ZLogContent()
     {
-
     }
-    public LogContent(string cate, string content, ZLoggerLevels level)
+    public ZLogContent(string cate, string method, string content, ZLoggerLevels level)
     {
-        Cate = cate;
+        Class = cate;
+        Method= method;
         Content = content;
         Level = level;
     }
-    public string Cate { get; set; }
+    public string Class { get; set; }
+    public string Method { get; set; }
     public string Content { get; set; }
     public ZLoggerLevels Level { get; set; }
     public DateTime Time { get; set; } = DateTime.Now;
     public override string ToString()
     {
-        return $"{Cate} [{Level}] {Content} {Time.ToString("T")}";
+        return $"{Class}:{Method} [{Level}] {Content} {Time.ToString("T")}";
     }
 }
 public class ZLog
@@ -44,8 +44,8 @@ public class ZLog
         KeyPoints.Add((content, DateTime.Now));
     }
 
-    public static List<LogContent> LogContents { get; set; } = new();
-    public static Dictionary<string, Dictionary<string, List<LogContent>>> CateLogContents { get; set; } = new();
+    public static List<ZLogContent> LogContents { get; set; } = new();
+    public static Dictionary<string, Dictionary<string, List<ZLogContent>>> CateLogContents { get; set; } = new();
     protected static (string, string) logExInfo([CallerMemberName] string callerMember = "")
     {
         StackTrace stackTrace = new StackTrace();
@@ -63,10 +63,10 @@ public class ZLog
     public static void Trace(string content)
     {
         var (type, method) = logExInfo();
-        LogContent log = new(type, $"[{type}]-{method} {content}", ZLoggerLevels.Trace);
+        ZLogContent log = new(type, method, content, ZLoggerLevels.Trace);
         LogContents.Add(log);
         if (ToConsole)
-            Console.WriteLine($"[{type}]-{method} {content}");
+            Console.WriteLine(log);
         if (!CateLogContents.ContainsKey(type))
         {
             CateLogContents.Add(type, new());
@@ -74,17 +74,17 @@ public class ZLog
         var c = CateLogContents[type];
         if (!c.ContainsKey(method))
         {
-            c.Add(method, new List<LogContent>());
+            c.Add(method, new List<ZLogContent>());
         }
         c[method].Add(log);
     }
     public static void Info(string content)
     {
         var (type, method) = logExInfo();
-        LogContent log = new(type, $"[{type}]-{method} {content}", ZLoggerLevels.Info);
+        ZLogContent log = new(type, method, content, ZLoggerLevels.Info);
         LogContents.Add(log);
         if (ToConsole)
-            Console.WriteLine($"[{type}]-{method} {content}");
+            Console.WriteLine(log);
         if (!CateLogContents.ContainsKey(type))
         {
             CateLogContents.Add(type, new());
@@ -92,17 +92,17 @@ public class ZLog
         var c = CateLogContents[type];
         if (!c.ContainsKey(method))
         {
-            c.Add(method, new List<LogContent>());
+            c.Add(method, new List<ZLogContent>());
         }
         c[method].Add(log);
     }
     public static void Warn(string content)
     {
         var (type, method) = logExInfo();
-        LogContent log = new(type, $"[{type}]-{method} {content}", ZLoggerLevels.Warn);
+        ZLogContent log = new(type, method, content, ZLoggerLevels.Warn);
         LogContents.Add(log);
         if (ToConsole)
-            Console.WriteLine($"[{type}]-{method} {content}");
+            Console.WriteLine(log);
         if (!CateLogContents.ContainsKey(type))
         {
             CateLogContents.Add(type, new());
@@ -110,17 +110,17 @@ public class ZLog
         var c = CateLogContents[type];
         if (!c.ContainsKey(method))
         {
-            c.Add(method, new List<LogContent>());
+            c.Add(method, new List<ZLogContent>());
         }
         c[method].Add(log);
     }
     public static void Error(string content)
     {
         var (type, method) = logExInfo();
-        LogContent log = new(type, $"[{type}]-{method} {content}", ZLoggerLevels.Error);
+        ZLogContent log = new(type, method, content, ZLoggerLevels.Error);
         LogContents.Add(log);
         if (ToConsole)
-            Console.WriteLine($"[{type}]-{method} {content}");
+            Console.WriteLine(log);
         if (!CateLogContents.ContainsKey(type))
         {
             CateLogContents.Add(type, new());
@@ -128,17 +128,17 @@ public class ZLog
         var c = CateLogContents[type];
         if (!c.ContainsKey(method))
         {
-            c.Add(method, new List<LogContent>());
+            c.Add(method, new List<ZLogContent>());
         }
         c[method].Add(log);
     }
     public static void Fatal(string content)
     {
         var (type, method) = logExInfo();
-        LogContent log = new(type, $"[{type}]-{method} {content}", ZLoggerLevels.Fatal);
+        ZLogContent log = new(type, method, content, ZLoggerLevels.Fatal);
         LogContents.Add(log);
         if (ToConsole)
-            Console.WriteLine($"[{type}]-{method} {content}");
+            Console.WriteLine(log);
         if (!CateLogContents.ContainsKey(type))
         {
             CateLogContents.Add(type, new());
@@ -146,7 +146,7 @@ public class ZLog
         var c = CateLogContents[type];
         if (!c.ContainsKey(method))
         {
-            c.Add(method, new List<LogContent>());
+            c.Add(method, new List<ZLogContent>());
         }
         c[method].Add(log);
     }

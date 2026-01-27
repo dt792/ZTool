@@ -7,4 +7,4 @@ using System.Text.Json.Serialization;
 using ZTool.Sugers;
 using ZTool.Usages;
 Console.WriteLine("Hello ZTool");
-ZStructuresUsage.FileSingleton();
+ZInfrastructuresUsage.AutoMap();

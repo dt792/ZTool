@@ -8,7 +8,7 @@ namespace ZTool.Infrastructures;
 
 public static class ZMemo
 {
-    public static void Save<T>(this T obj, string name = "zlast") where T : new()
+    public static void SaveMemo<T>(this T obj, string name = "zlast") where T : new()
     {
         if (!saveDict.ContainsKey(obj))
         {
@@ -23,7 +23,7 @@ public static class ZMemo
             saveDict[obj].Add(name, obj.DeepClone());
         }
     }
-    public static void Load<T>(this T obj, string name = "zlast") where T : new()
+    public static void LoadMemo<T>(this T obj, string name = "zlast") where T : new()
     {
         pump(saveDict[obj][name], obj);
     }

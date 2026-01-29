@@ -26,9 +26,9 @@ public static class ZStructuresUsage
     {
         Model model = new Model();
         model.Name = "1000";
-        model.Save();
+        model.SaveMemo();
         model.Name = "90";
-        model.Load();
+        model.LoadMemo();
         Console.WriteLine(model.Name);
     }
     public class CCardT : RichEnum<CCardT, Func<object>>

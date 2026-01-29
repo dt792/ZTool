@@ -30,11 +30,11 @@ internal class ZInfrastructuresUsage
         Worker dd = (Worker)Activator.CreateInstance(a);
         dd.Work();
     }
-    public class AnyEvent:Event<int> { }
+    public class AnyEvent:ZEvent<int> { }
     public static void Event()
     {
-        ZEvent.Let<AnyEvent>().Subscribe(Console.WriteLine);
-        ZEvent.Let<AnyEvent>().Publish(10);
+        ZEventBus.Let<AnyEvent>().Subscribe(Console.WriteLine);
+        ZEventBus.Let<AnyEvent>().Publish(10);
     }
     public static void Log()
     {
@@ -86,8 +86,8 @@ internal class ZInfrastructuresUsage
         Console.WriteLine(b.a);
     }
     static int a;
-    class AddOne : Command { public override void Do() { a += 1; } }
-    class MulAny : Command<int> { public override void Do(int i) { a *= i; }
+    class AddOne : ZCommand { public override void Do() { a += 1; } }
+    class MulAny : ZCommand<int> { public override void Do(int i) { a *= i; }
         public override void Undo()
         {
             a /= Arg1;

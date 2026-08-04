@@ -51,7 +51,8 @@ public static class ObjectTool
             foreach (var prop in obj.GetType().GetProperties())
             {
                 if (prop.SetMethod is not null)
-                    prop.SetValue(newObj, recursiveClone(prop.GetValue(obj)));
+                    if(prop.GetValue(obj) is not null)
+                        prop.SetValue(newObj, recursiveClone(prop.GetValue(obj)));
             }
             foreach (var field in obj.GetType().GetFields())
             {

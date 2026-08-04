@@ -1,41 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace ZTool.Bases;
+namespace ZTool.Bases; // 记得加上你的命名空间
 
 public static class JsonTool
 {
-    public static string RefSerialize(object obj)
+    // 1. 改名为 ToJson，并增加一个布尔参数控制是否缩进
+    public static string ToJson(this object obj, bool indented = false)
+    {
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = indented // 控制缩进
+        };
+        return JsonSerializer.Serialize(obj, options);
+    }
+
+    // 2. 改名为 ToObj
+    public static T? ToObj<T>(this string json)
+    {
+        return JsonSerializer.Deserialize<T>(json);
+    }
+
+    // 保留你原来的带引用保留的方法
+    public static string RefSerialize(this object obj)
     {
         var options = new JsonSerializerOptions
         {
             ReferenceHandler = ReferenceHandler.Preserve,
             WriteIndented = true
         };
-        string json = JsonSerializer.Serialize(obj, options);
-        return json;
+        return JsonSerializer.Serialize(obj, options);
     }
-    public static T RefDeserialize<T>(string json)
+
+    public static T? RefDeserialize<T>(this string json)
     {
         var options = new JsonSerializerOptions
         {
             ReferenceHandler = ReferenceHandler.Preserve,
             WriteIndented = true
         };
-        T obj = JsonSerializer.Deserialize<T>(json, options);
-        return obj;
-    }
-    public static string Serialize(object obj)
-    {
-        string json = JsonSerializer.Serialize(obj);
-        return json;
-    }
-    public static T Deserialize<T>(string json)
-    {
-        T obj = JsonSerializer.Deserialize<T>(json);
-        return obj;
+        return JsonSerializer.Deserialize<T>(json, options);
     }
 }

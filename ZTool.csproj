@@ -11,7 +11,11 @@
     <Description>自用小工具</Description>
     <Title>ZTool_Re</Title>
 	<PackageId>ZTool_Re</PackageId>
-	<VersionPrefix>1.0.9</VersionPrefix>
+	<VersionPrefix>1.1.1</VersionPrefix>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+  </ItemGroup>
 
 </Project>

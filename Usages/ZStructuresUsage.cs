@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ZTool.Bases;
-using ZTool.Infrastructures;
+using ZTool.Infrastructures.Memo;
 using ZTool.Structures;
 
 namespace ZTool.Usages;
@@ -11,7 +11,7 @@ public static class ZStructuresUsage
 {
     public class Model
     {
-        public string Name { get; set; }
+        public string Name { get; set; } 
         public Model Friend {  get; set; }
     }
     public static void Clone()

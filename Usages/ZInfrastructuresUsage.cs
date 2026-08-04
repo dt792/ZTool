@@ -4,7 +4,16 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Channels;
 using Microsoft.VisualBasic;
-using ZTool.Infrastructures;
+using ZTool.Infrastructures.Alias;
+using ZTool.Infrastructures.Aop;
+using ZTool.Infrastructures.Cache;
+using ZTool.Infrastructures.Command;
+using ZTool.Infrastructures.DI;
+using ZTool.Infrastructures.Event;
+using ZTool.Infrastructures.Log;
+using ZTool.Infrastructures.Mapper;
+using ZTool.Infrastructures.StateMachine;
+using ZTool.Infrastructures.Tasks;
 using ZTool.Sugers;
 
 namespace ZTool.Usages;
@@ -15,7 +24,7 @@ internal class ZInfrastructuresUsage
     class Model { }
     public static void AliasUsage()
     {
-        ZAilas.GetAlias<Model>();
+        ZAlias.GetAlias<Model>();
         typeof(Model).GetAlias();
     }
     public static void Cache()
@@ -123,27 +132,10 @@ internal class ZInfrastructuresUsage
     }
     public static void TaskQuene()
     {
-        ZTaskQuene<AnyTask> taskQuene = new();
-        taskQuene.Start();
-        taskQuene.AddTask();
-        taskQuene.AddTask();
+        ZTaskQueue<AnyTask> taskQueue = new();
+        taskQueue.Start();
+        taskQueue.AddTask();
+        taskQueue.AddTask();
         Console.ReadLine();
-    }
-}
-public class Worker
-{
-    [AnyAop]
-    public virtual void Work()
-    {
-        Console.WriteLine(1);
-    }
-}
-public class AnyAop : InvokerAttribute
-{
-    public override void Invoke(InvocationContext invocationContext)
-    {
-        Console.WriteLine(10);
-        Next();
-        Console.WriteLine(10);
     }
 }

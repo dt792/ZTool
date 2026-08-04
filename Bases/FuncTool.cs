@@ -30,6 +30,10 @@ public static class FuncTool
     {
         return () => { return func(arg0); };
     }
+    public static Func<T2,R> Pack<T1, T2, R>(this Func<T1, T2, R> func, T1 arg0)
+    {
+        return (e) => { return func(arg0, e); };
+    }
     public static Func<R> Pack<T1, T2, R>(this Func<T1, T2, R> func, T1 arg0, T2 arg1)
     {
         return () => { return func(arg0, arg1); };

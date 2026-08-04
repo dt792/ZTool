@@ -7,7 +7,7 @@ public static class DictionaryTool
     /// <typeparam name="K"></typeparam>
     /// <param name="list"></param>
     /// <returns></returns>
-    public static void Categorize<K, V>(Dictionary<K, List<V>> dict, K key, V value)
+    public static void CategorizeAdd<K, V>(Dictionary<K, List<V>> dict, K key, V value)
     {
         if (dict.ContainsKey(key))
         {
